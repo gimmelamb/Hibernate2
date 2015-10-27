@@ -32,5 +32,8 @@
     
     
     <mapping class="com.olivia.mint.model.UserDetails"></mapping>
+    <mapping class="com.olivia.mint.model.Vehicle" />
+    <mapping class="com.olivia.mint.model.TwoWheeler" />
+    <mapping class="com.olivia.mint.model.FourWheeler" />
   </session-factory>
 </hibernate-configuration>

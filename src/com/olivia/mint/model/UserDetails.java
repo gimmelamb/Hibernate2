@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
@@ -14,6 +15,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,11 +35,15 @@ public class UserDetails {
 	private String userName;
 	@Temporal(TemporalType.DATE)
 	private Date joinedDate;
-	@ElementCollection(fetch=FetchType.EAGER)
+	@OneToMany(cascade=CascadeType.ALL) 
+	//@JoinTable(joinColumns=@JoinColumn(name="USER_ID"), inverseJoinColumns=@JoinColumn(name="VEHICLE_ID"))
+	private List<Vehicle> vehicles = new ArrayList<>();
+	
+	/*@ElementCollection(fetch=FetchType.EAGER)
 	@JoinTable(name="USER_ADDRESS",joinColumns=@JoinColumn(name="USER_ID"))
 	//Adding primary key for JoinTable
-	/*@GenericGenerator(name = "hilo-gen", strategy = "hilo")
-	@CollectionId(columns = { @Column(name="ADDRESS_ID") }, generator = "hilo-gen", type = @Type(type="long"))*/
+	@GenericGenerator(name = "hilo-gen", strategy = "hilo")
+	@CollectionId(columns = { @Column(name="ADDRESS_ID") }, generator = "hilo-gen", type = @Type(type="long"))
 	private List<Address> listOfaddrs = new ArrayList<>();
 	
 	public List<Address> getListOfaddrs() {
@@ -43,7 +51,8 @@ public class UserDetails {
 	}
 	public void setListOfaddrs(List<Address> listOfaddrs) {
 		this.listOfaddrs = listOfaddrs;
-	}
+	}*/
+	
 	public int getUserId() {
 		return userId;
 	}
@@ -62,7 +71,11 @@ public class UserDetails {
 	public void setJoinedDate(Date joinedDate) {
 		this.joinedDate = joinedDate;
 	}
-	
-	
+	public List<Vehicle> getVehicles() {
+		return vehicles;
+	}
+	public void setVehicles(List<Vehicle> vehicles) {
+		this.vehicles = vehicles;
+	}
 	
 }
